@@ -1,0 +1,5 @@
+name:      ds-test
+version:   0
+layout:
+  build_dir:     build
+  sol_sources:   src
