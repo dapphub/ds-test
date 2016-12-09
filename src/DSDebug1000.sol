@@ -1,4 +1,4 @@
-/// DSDebug1000K.sol -- debug base class extracted from Dapple
+/// DSDebug1000.sol -- debug base class extracted from Dapple
 
 // Copyright 2016  Nexus Development, LLC
 //
@@ -14,9 +14,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pragma solidity >= 0.4.0;
+pragma solidity ^0.4.6;
 
-contract DSDebug1000K {
+contract DSDebug1000 {
     event logs(bytes val);
 
     event log_named_decimal_int(bytes32 key, int val, uint decimals);

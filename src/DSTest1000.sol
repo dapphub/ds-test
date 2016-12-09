@@ -1,4 +1,4 @@
-/// DSTest1000K.sol -- test base class extracted from Dapple
+/// DSTest1000.sol -- test base class extracted from Dapple
 
 // Copyright 2016  Nexus Development, LLC
 //
@@ -14,11 +14,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pragma solidity >= 0.4.0;
+pragma solidity ^0.4.6;
 
-import "./DSDebug1000K.sol";
+import "./DSDebug1000.sol";
 
-contract DSTest1000K is DSDebug1000K {
+contract DSTest1000 is DSDebug1000 {
     bytes32 testname;
     address me;
     // easy way to detect if its a test from the abi
