@@ -116,6 +116,27 @@ contract DSTest950 {
             fail();
         }
     }
+
+    function assertEq0(bytes a, bytes b) {
+        var ok = true;
+
+        if (a.length == b.length) {
+            for (var i = 0; i < a.length; i++) {
+                if (a[i] != b[i]) {
+                    ok = false;
+                }
+            }
+        } else {
+            ok = false;
+        }
+
+        if (!ok) {
+            log_bytes32("Error: Wrong `bytes' value");
+            log_named_bytes32("  Expected", "[cannot show `bytes' value]");
+            log_named_bytes32("  Actual", "[cannot show `bytes' value]");
+            fail();
+        }
+    }
 }
 
 contract DSTest950Proxy {
