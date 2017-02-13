@@ -24,7 +24,8 @@ contract DSTest1000 is DSDebug1000 {
     // easy way to detect if its a test from the abi
     bool public IS_TEST;
     bool public failed;
-    function Test() {
+
+    function DSTest1000() {
         me = address(this);
         IS_TEST = true;
     }
