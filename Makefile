@@ -1,1 +1,2 @@
-test:; dapple-quicktest
+all:; dapp build
+test:; dapp test
