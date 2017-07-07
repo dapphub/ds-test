@@ -9,7 +9,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND (express or implied).
 
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.13;
 
 contract DSTest {
     event eventListener          (address target, bool exact);
@@ -116,7 +116,7 @@ contract DSTest {
         var ok = true;
 
         if (a.length == b.length) {
-            for (var i = 0; i < a.length; i++) {
+            for (uint256 i = 0; i < a.length; i++) {
                 if (a[i] != b[i]) {
                     ok = false;
                 }
