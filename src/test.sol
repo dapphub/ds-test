@@ -1,10 +1,12 @@
-/// test.sol -- test base class
+/// test.sol -- test base class (inherited from Dapple)
 
-// Copyright (C) 2015, 2016, 2017  Nexus Development, LLC
-//
+// Copyright (C) 2015, 2016  Nikolai Mushegian <nikolai@nexusdev.us>
+// Copyright (C) 2015, 2016  Denis Erfurt <denis@dapphub.com>
+// Copyright (C) 2016, 2017  Daniel Brockman <daniel@brockman.se>
+
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
-//
+
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND (express or implied).
@@ -116,7 +118,7 @@ contract DSTest {
         var ok = true;
 
         if (a.length == b.length) {
-            for (var i = 0; i < a.length; i++) {
+            for (uint i = 0; i < a.length; i++) {
                 if (a[i] != b[i]) {
                     ok = false;
                 }
