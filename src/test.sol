@@ -11,7 +11,7 @@
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND (express or implied).
 
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.13;
 
 contract DSTest {
     event eventListener          (address target, bool exact);
@@ -49,7 +49,7 @@ contract DSTest {
         log_named_uint("gas", startGas - endGas);
     }
 
-    function assert(bool condition) internal {
+    function assertTrue(bool condition) internal {
         if (!condition) {
             log_bytes32("Assertion failed");
             fail();
