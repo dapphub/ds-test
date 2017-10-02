@@ -27,18 +27,17 @@ contract DSTest {
     bool public IS_TEST;
     bool public failed;
 
-    function DSTest() {
+    function DSTest() internal {
         IS_TEST = true;
     }
 
-    function setUp() {
-    }
+    function setUp() public;
 
     function fail() internal {
         failed = true;
     }
 
-    function expectEventsExact(address target) {
+    function expectEventsExact(address target) internal {
         eventListener(target, true);
     }
 
@@ -114,7 +113,7 @@ contract DSTest {
         }
     }
 
-    function assertEq0(bytes a, bytes b) {
+    function assertEq0(bytes a, bytes b) internal {
         var ok = true;
 
         if (a.length == b.length) {
