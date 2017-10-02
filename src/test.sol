@@ -31,7 +31,8 @@ contract DSTest {
         IS_TEST = true;
     }
 
-    function setUp() public;
+    function setUp() public {
+    }
 
     function fail() internal {
         failed = true;
