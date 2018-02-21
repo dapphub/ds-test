@@ -45,9 +45,9 @@ contract DSTest {
     }
 
     modifier logs_gas() {
-        var startGas = msg.gas;
+        uint startGas = msg.gas;
         _;
-        var endGas = msg.gas;
+        uint endGas = msg.gas;
         log_named_uint("gas", startGas - endGas);
     }
 
@@ -117,7 +117,7 @@ contract DSTest {
     }
 
     function assertEq0(bytes a, bytes b) internal {
-        var ok = true;
+        bool ok = true;
 
         if (a.length == b.length) {
             for (uint i = 0; i < a.length; i++) {
