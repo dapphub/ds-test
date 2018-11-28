@@ -11,7 +11,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity ^0.4.23;
+pragma solidity >0.4.23;
 
 contract DSTest {
     event eventListener          (address target, bool exact);
@@ -116,7 +116,7 @@ contract DSTest {
         }
     }
 
-    function assertEq0(bytes a, bytes b) internal {
+    function assertEq0(bytes memory a, bytes memory b) internal {
         bool ok = true;
 
         if (a.length == b.length) {
