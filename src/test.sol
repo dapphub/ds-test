@@ -23,6 +23,7 @@ contract DSTest {
     event log_named_decimal_uint (bytes32 key, uint val, uint decimals);
     event log_named_int          (bytes32 key, int val);
     event log_named_uint         (bytes32 key, uint val);
+    event log_named_string       (bytes32 key, string val);
 
     bool public IS_TEST;
     bool public failed;
@@ -112,6 +113,15 @@ contract DSTest {
             emit log_bytes32("Error: Wrong `uint' value");
             emit log_named_uint("  Expected", b);
             emit log_named_uint("    Actual", a);
+            fail();
+        }
+    }
+
+    function assertEq(string memory a, string memory b) internal {
+        if (keccak256(abi.encodePacked(a)) != keccak256(abi.encodePacked(b))) {
+            emit log_bytes32("Error: Wrong `string' value");
+            emit log_named_string("  Expected", b);
+            emit log_named_string("    Actual", a);
             fail();
         }
     }
