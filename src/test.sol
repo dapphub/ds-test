@@ -52,15 +52,22 @@ contract DSTest {
     }
 
     function assertTrue(bool condition) internal {
+        assertTrue(condition, "Assertion failed");
+    }
+
+    function assertTrue(bool condition, bytes32 err) internal {
         if (!condition) {
-            emit log_bytes32("Assertion failed");
+            emit log_named_bytes32("Error", err);
             fail();
         }
     }
-
     function assertEq(address a, address b) internal {
+        assertEq(a, b, "Wrong `address' value");
+    }
+
+    function assertEq(address a, address b, bytes32 err) internal {
         if (a != b) {
-            emit log_bytes32("Error: Wrong `address' value");
+            emit log_named_bytes32("     Error", err);
             emit log_named_address("  Expected", b);
             emit log_named_address("    Actual", a);
             fail();
@@ -71,9 +78,17 @@ contract DSTest {
         assertEq(a, b);
     }
 
+    function assertEq32(bytes32 a, bytes32 b, bytes32 err) internal {
+        assertEq(a, b, err);
+    }
+
     function assertEq(bytes32 a, bytes32 b) internal {
+        assertEq(a, b, "Wrong `bytes32' value");
+    }
+
+    function assertEq(bytes32 a, bytes32 b, bytes32 err) internal {
         if (a != b) {
-            emit log_bytes32("Error: Wrong `bytes32' value");
+            emit log_named_bytes32("     Error", err);
             emit log_named_bytes32("  Expected", b);
             emit log_named_bytes32("    Actual", a);
             fail();
@@ -81,8 +96,12 @@ contract DSTest {
     }
 
     function assertEqDecimal(int a, int b, uint decimals) internal {
+        assertEqDecimal(a, b, decimals, "Wrong fixed-point decimal");
+    }
+
+    function assertEqDecimal(int a, int b, uint decimals, bytes32 err) internal {
         if (a != b) {
-            emit log_bytes32("Error: Wrong fixed-point decimal");
+            emit log_named_bytes32("Error", err);
             emit log_named_decimal_int("  Expected", b, decimals);
             emit log_named_decimal_int("    Actual", a, decimals);
             fail();
@@ -90,8 +109,12 @@ contract DSTest {
     }
 
     function assertEqDecimal(uint a, uint b, uint decimals) internal {
+        assertEqDecimal(a, b, decimals, "Wrong fixed-point decimal");
+    }
+
+    function assertEqDecimal(uint a, uint b, uint decimals, bytes32 err) internal {
         if (a != b) {
-            emit log_bytes32("Error: Wrong fixed-point decimal");
+            emit log_named_bytes32("Error", err);
             emit log_named_decimal_uint("  Expected", b, decimals);
             emit log_named_decimal_uint("    Actual", a, decimals);
             fail();
@@ -99,17 +122,25 @@ contract DSTest {
     }
 
     function assertEq(int a, int b) internal {
+        assertEq(a, b, "Wrong `int' value");
+    }
+
+    function assertEq(int a, int b, bytes32 err) internal {
         if (a != b) {
-            emit log_bytes32("Error: Wrong `int' value");
-            emit log_named_int("  Expected", b);
-            emit log_named_int("    Actual", a);
+            emit log_named_bytes32("Error", err);
+            emit log_named_int("   Expected", b);
+            emit log_named_int("     Actual", a);
             fail();
         }
     }
 
     function assertEq(uint a, uint b) internal {
+        assertEq(a, b, "Wrong `uint' value");
+    }
+
+    function assertEq(uint a, uint b, bytes32 err) internal {
         if (a != b) {
-            emit log_bytes32("Error: Wrong `uint' value");
+            emit log_named_bytes32("Error", err);
             emit log_named_uint("  Expected", b);
             emit log_named_uint("    Actual", a);
             fail();
@@ -117,6 +148,10 @@ contract DSTest {
     }
 
     function assertEq0(bytes memory a, bytes memory b) internal {
+        assertEq0(a, b, "Wrong `bytes' value");
+    }
+
+    function assertEq0(bytes memory a, bytes memory b, bytes32 err) internal {
         bool ok = true;
 
         if (a.length == b.length) {
@@ -130,7 +165,7 @@ contract DSTest {
         }
 
         if (!ok) {
-            emit log_bytes32("Error: Wrong `bytes' value");
+            emit log_named_bytes32("Error", err);
             emit log_named_bytes32("  Expected", "[cannot show `bytes' value]");
             emit log_named_bytes32("  Actual", "[cannot show `bytes' value]");
             fail();
