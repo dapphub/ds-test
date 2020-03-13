@@ -19,6 +19,7 @@ contract DSTest {
     event log_bytes32            (bytes32);
     event log_named_address      (bytes32 key, address val);
     event log_named_bytes32      (bytes32 key, bytes32 val);
+    event log_named_string       (bytes32 key, string val);
     event log_named_decimal_int  (bytes32 key, int val, uint decimals);
     event log_named_decimal_uint (bytes32 key, uint val, uint decimals);
     event log_named_int          (bytes32 key, int val);
@@ -77,6 +78,14 @@ contract DSTest {
             emit log_named_bytes32("  Expected", b);
             emit log_named_bytes32("    Actual", a);
             fail();
+        }
+    }
+
+    function assertEq(string memory a, string memory b) internal {
+        if (keccak256(bytes(a)) != keccak256(bytes(b))) {
+            emit log_bytes32("Error: Wrong `string' value");
+            emit log_named_string(" Expected", a);
+            emit log_named_string("   Actual", b);
         }
     }
 
