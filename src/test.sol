@@ -26,14 +26,9 @@ contract DSTest {
 
     bool public IS_TEST;
     bool public failed;
-    bool SUPPRESS_SETUP_WARNING;  // hack for solc pure restriction warning
 
     constructor() internal {
         IS_TEST = true;
-    }
-
-    function setUp() public {
-        SUPPRESS_SETUP_WARNING = true;  // totally unused by anything
     }
 
     function fail() internal {
