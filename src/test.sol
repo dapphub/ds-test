@@ -28,7 +28,7 @@ contract DSTest {
     bool public IS_TEST;
     bool public failed;
 
-    constructor() internal {
+    constructor() {
         IS_TEST = true;
     }
 
