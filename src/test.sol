@@ -145,6 +145,64 @@ contract DSTest {
         }
     }
 
+    function assertGt(uint a, uint b, bytes32 err) internal {
+        if (a <= b) {
+            emit log_named_bytes32("Error: ", err);
+            assertGt(a, b);
+        }
+    }
+    function assertGt(uint a, uint b) internal {
+        if (a <= b) {
+            emit log_bytes32("Error: a > b not satisfied");
+            emit log_named_uint("         a", a);
+            emit log_named_uint("         b", b);
+            fail();
+        }
+    }
+    function assertGt(int a, int b, bytes32 err) internal {
+        if (a <= b) {
+            emit log_named_bytes32("Error: ", err);
+            assertGt(a, b);
+        }
+    }
+    function assertGt(int a, int b) internal {
+        if (a <= b) {
+            emit log_bytes32("Error: a > b not satisfied");
+            emit log_named_int("         a", a);
+            emit log_named_int("         b", b);
+            fail();
+        }
+    }
+
+    function assertLt(uint a, uint b, bytes32 err) internal {
+        if (a >= b) {
+            emit log_named_bytes32("Error: ", err);
+            assertLt(a, b);
+        }
+    }
+    function assertLt(uint a, uint b) internal {
+        if (a >= b) {
+            emit log_bytes32("Error: a < b not satisfied");
+            emit log_named_uint("         a", a);
+            emit log_named_uint("         b", b);
+            fail();
+        }
+    }
+    function assertLt(int a, int b, bytes32 err) internal {
+        if (a >= b) {
+            emit log_named_bytes32("Error: ", err);
+            assertLt(a, b);
+        }
+    }
+    function assertLt(int a, int b) internal {
+        if (a >= b) {
+            emit log_bytes32("Error: a < b not satisfied");
+            emit log_named_int("         a", a);
+            emit log_named_int("         b", b);
+            fail();
+        }
+    }
+
     function assertEq0(bytes memory a, bytes memory b) internal {
         assertEq0(a, b, "Wrong `bytes' value");
     }
