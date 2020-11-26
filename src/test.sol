@@ -14,7 +14,6 @@
 pragma solidity >=0.4.23;
 
 contract DSTest {
-    event eventListener          (address target, bool exact);
     event logs                   (bytes);
     event log_bytes32            (bytes32);
     event log_named_address      (bytes32 key, address val);
@@ -34,10 +33,6 @@ contract DSTest {
 
     function fail() internal {
         failed = true;
-    }
-
-    function expectEventsExact(address target) internal {
-        emit eventListener(target, true);
     }
 
     modifier logs_gas() {
