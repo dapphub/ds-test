@@ -26,12 +26,8 @@ contract DSTest {
     event log_named_uint         (bytes32 key, uint val);
     event log_named_string       (bytes32 key, string val);
 
-    bool public IS_TEST;
+    bool public IS_TEST = true;
     bool public failed;
-
-    constructor() internal {
-        IS_TEST = true;
-    }
 
     function fail() internal {
         failed = true;
