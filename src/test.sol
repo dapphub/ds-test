@@ -188,6 +188,34 @@ contract DSTest {
             fail();
         }
     }
+    function assertGe(uint a, uint b, bytes32 err) internal {
+        if (a <= b) {
+            emit log_named_bytes32("Error: ", err);
+            assertGe(a, b);
+        }
+    }
+    function assertGe(uint a, uint b) internal {
+        if (a < b) {
+            emit log_bytes32("Error: a > b not satisfied");
+            emit log_named_uint("         a", a);
+            emit log_named_uint("         b", b);
+            fail();
+        }
+    }
+    function assertGe(int a, int b, bytes32 err) internal {
+        if (a < b) {
+            emit log_named_bytes32("Error: ", err);
+            assertGe(a, b);
+        }
+    }
+    function assertGe(int a, int b) internal {
+        if (a < b) {
+            emit log_bytes32("Error: a > b not satisfied");
+            emit log_named_int("         a", a);
+            emit log_named_int("         b", b);
+            fail();
+        }
+    }
 
     function assertLt(uint a, uint b, bytes32 err) internal {
         if (a >= b) {
@@ -211,6 +239,34 @@ contract DSTest {
     }
     function assertLt(int a, int b) internal {
         if (a >= b) {
+            emit log_bytes32("Error: a < b not satisfied");
+            emit log_named_int("         a", a);
+            emit log_named_int("         b", b);
+            fail();
+        }
+    }
+    function assertLe(uint a, uint b, bytes32 err) internal {
+        if (a > b) {
+            emit log_named_bytes32("Error: ", err);
+            assertLe(a, b);
+        }
+    }
+    function assertLe(uint a, uint b) internal {
+        if (a > b) {
+            emit log_bytes32("Error: a < b not satisfied");
+            emit log_named_uint("         a", a);
+            emit log_named_uint("         b", b);
+            fail();
+        }
+    }
+    function assertLe(int a, int b, bytes32 err) internal {
+        if (a > b) {
+            emit log_named_bytes32("Error: ", err);
+            assertLe(a, b);
+        }
+    }
+    function assertLe(int a, int b) internal {
+        if (a > b) {
             emit log_bytes32("Error: a < b not satisfied");
             emit log_named_int("         a", a);
             emit log_named_int("         b", b);
