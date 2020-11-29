@@ -18,8 +18,13 @@ pragma solidity >=0.4.23;
 contract DSTest {
     event log                    (string);
     event logs                   (bytes);
-    event log_bytes              (bytes);
+
+    event log_address            (bytes32);
     event log_bytes32            (bytes32);
+    event log_int                (int);
+    event log_uint               (uint);
+    event log_bytes              (bytes);
+    event log_string             (string);
 
     event log_named_address      (string key, address val);
     event log_named_bytes32      (string key, bytes32 val);
