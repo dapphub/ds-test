@@ -56,231 +56,357 @@ contract DSTest {
     }
 
     function assertTrue(bool condition) internal {
-        assertTrue(condition, "Assertion failed");
-    }
-
-    function assertTrue(bool condition, bytes32 err) internal {
         if (!condition) {
-            emit log_named_bytes32("Error", err);
+            emit log("Error: Assertion Failed");
             fail();
         }
     }
-    function assertEq(address a, address b) internal {
-        assertEq(a, b, "Wrong `address' value");
+
+    function assertTrue(bool condition, string memory err) internal {
+        if (!condition) {
+            emit log_named_string("Error", err);
+            assertTrue(condition);
+        }
     }
 
-    function assertEq(address a, address b, bytes32 err) internal {
+    function assertEq(address a, address b) internal {
         if (a != b) {
-            emit log_named_bytes32("     Error", err);
+            emit log("Error: a == b not satisfied [address]");
             emit log_named_address("  Expected", b);
             emit log_named_address("    Actual", a);
             fail();
         }
     }
-
-    function assertEq32(bytes32 a, bytes32 b) internal {
-        assertEq(a, b);
-    }
-
-    function assertEq32(bytes32 a, bytes32 b, bytes32 err) internal {
-        assertEq(a, b, err);
+    function assertEq(address a, address b, string memory err) internal {
+        if (a != b) {
+            emit log_named_string ("Error", err);
+            assertEq(a, b);
+        }
     }
 
     function assertEq(bytes32 a, bytes32 b) internal {
-        assertEq(a, b, "Wrong `bytes32' value");
-    }
-
-    function assertEq(bytes32 a, bytes32 b, bytes32 err) internal {
         if (a != b) {
-            emit log_named_bytes32("     Error", err);
+            emit log("Error: a == b not satisfied [bytes32]");
             emit log_named_bytes32("  Expected", b);
             emit log_named_bytes32("    Actual", a);
             fail();
         }
     }
-
-    function assertEqDecimal(int a, int b, uint decimals) internal {
-        assertEqDecimal(a, b, decimals, "Wrong fixed-point decimal");
-    }
-
-    function assertEqDecimal(int a, int b, uint decimals, bytes32 err) internal {
+    function assertEq(bytes32 a, bytes32 b, string memory err) internal {
         if (a != b) {
-            emit log_named_bytes32("Error", err);
-            emit log_named_decimal_int("  Expected", b, decimals);
-            emit log_named_decimal_int("    Actual", a, decimals);
-            fail();
+            emit log_named_string ("Error", err);
+            assertEq(a, b);
         }
     }
-
-    function assertEqDecimal(uint a, uint b, uint decimals) internal {
-        assertEqDecimal(a, b, decimals, "Wrong fixed-point decimal");
+    function assertEq32(bytes32 a, bytes32 b) internal {
+        assertEq(a, b);
     }
-
-    function assertEqDecimal(uint a, uint b, uint decimals, bytes32 err) internal {
-        if (a != b) {
-            emit log_named_bytes32("Error", err);
-            emit log_named_decimal_uint("  Expected", b, decimals);
-            emit log_named_decimal_uint("    Actual", a, decimals);
-            fail();
-        }
+    function assertEq32(bytes32 a, bytes32 b, string memory err) internal {
+        assertEq(a, b, err);
     }
 
     function assertEq(int a, int b) internal {
-        assertEq(a, b, "Wrong `int' value");
-    }
-
-    function assertEq(int a, int b, bytes32 err) internal {
         if (a != b) {
-            emit log_named_bytes32("Error", err);
-            emit log_named_int("   Expected", b);
-            emit log_named_int("     Actual", a);
+            emit log("Error: a == b not satisfied [int]");
+            emit log_named_int("  Expected", b);
+            emit log_named_int("    Actual", a);
             fail();
         }
     }
-
-    function assertEq(uint a, uint b) internal {
-        assertEq(a, b, "Wrong `uint' value");
-    }
-
-    function assertEq(uint a, uint b, bytes32 err) internal {
+    function assertEq(int a, int b, string memory err) internal {
         if (a != b) {
-            emit log_named_bytes32("Error", err);
+            emit log_named_string("Error", err);
+            assertEq(a, b);
+        }
+    }
+    function assertEq(uint a, uint b) internal {
+        if (a != b) {
+            emit log("Error: a == b not satisfied [uint]");
             emit log_named_uint("  Expected", b);
             emit log_named_uint("    Actual", a);
             fail();
         }
     }
-
-    function assertEq(string memory a, string memory b) internal {
-        if (keccak256(abi.encodePacked(a)) != keccak256(abi.encodePacked(b))) {
-            emit log_bytes32("Error: Wrong `string' value");
-            emit log_named_string("  Expected", b);
-            emit log_named_string("    Actual", a);
+    function assertEq(uint a, uint b, string memory err) internal {
+        if (a != b) {
+            emit log_named_string("Error", err);
+            assertEq(a, b);
+        }
+    }
+    function assertEqDecimal(int a, int b, uint decimals) internal {
+        if (a != b) {
+            emit log("Error: a == b not satisfied [decimal int]");
+            emit log_named_decimal_int("  Expected", b, decimals);
+            emit log_named_decimal_int("    Actual", a, decimals);
             fail();
         }
     }
-
-    function assertGt(uint a, uint b, bytes32 err) internal {
-        if (a <= b) {
-            emit log_named_bytes32("Error: ", err);
-            assertGt(a, b);
+    function assertEqDecimal(int a, int b, uint decimals, string memory err) internal {
+        if (a != b) {
+            emit log_named_string("Error", err);
+            assertEqDecimal(a, b, decimals);
         }
     }
+    function assertEqDecimal(uint a, uint b, uint decimals) internal {
+        if (a != b) {
+            emit log("Error: a == b not satisfied [decimal uint]");
+            emit log_named_decimal_uint("  Expected", b, decimals);
+            emit log_named_decimal_uint("    Actual", a, decimals);
+            fail();
+        }
+    }
+    function assertEqDecimal(uint a, uint b, uint decimals, string memory err) internal {
+        if (a != b) {
+            emit log_named_string("Error", err);
+            assertEqDecimal(a, b, decimals);
+        }
+    }
+
     function assertGt(uint a, uint b) internal {
         if (a <= b) {
-            emit log_bytes32("Error: a > b not satisfied");
-            emit log_named_uint("         a", a);
-            emit log_named_uint("         b", b);
+            emit log("Error: a > b not satisfied [uint]");
+            emit log_named_uint("  Value a", a);
+            emit log_named_uint("  Value b", b);
             fail();
         }
     }
-    function assertGt(int a, int b, bytes32 err) internal {
+    function assertGt(uint a, uint b, string memory err) internal {
         if (a <= b) {
-            emit log_named_bytes32("Error: ", err);
+            emit log_named_string("Error", err);
             assertGt(a, b);
         }
     }
     function assertGt(int a, int b) internal {
         if (a <= b) {
-            emit log_bytes32("Error: a > b not satisfied");
-            emit log_named_int("         a", a);
-            emit log_named_int("         b", b);
+            emit log("Error: a > b not satisfied [int]");
+            emit log_named_int("  Value a", a);
+            emit log_named_int("  Value b", b);
             fail();
         }
     }
-    function assertGe(uint a, uint b, bytes32 err) internal {
+    function assertGt(int a, int b, string memory err) internal {
         if (a <= b) {
-            emit log_named_bytes32("Error: ", err);
-            assertGe(a, b);
+            emit log_named_string("Error", err);
+            assertGt(a, b);
         }
     }
+    function assertGtDecimal(int a, int b, uint decimals) internal {
+        if (a <= b) {
+            emit log("Error: a > b not satisfied [decimal int]");
+            emit log_named_decimal_int("  Value a", a, decimals);
+            emit log_named_decimal_int("  Value b", b, decimals);
+            fail();
+        }
+    }
+    function assertGtDecimal(int a, int b, uint decimals, string memory err) internal {
+        if (a <= b) {
+            emit log_named_string("Error", err);
+            assertGtDecimal(a, b, decimals);
+        }
+    }
+    function assertGtDecimal(uint a, uint b, uint decimals) internal {
+        if (a <= b) {
+            emit log("Error: a > b not satisfied [decimal uint]");
+            emit log_named_decimal_uint("  Value a", a, decimals);
+            emit log_named_decimal_uint("  Value b", b, decimals);
+            fail();
+        }
+    }
+    function assertGtDecimal(uint a, uint b, uint decimals, string memory err) internal {
+        if (a <= b) {
+            emit log_named_string("Error", err);
+            assertGtDecimal(a, b, decimals);
+        }
+    }
+
     function assertGe(uint a, uint b) internal {
         if (a < b) {
-            emit log_bytes32("Error: a > b not satisfied");
-            emit log_named_uint("         a", a);
-            emit log_named_uint("         b", b);
+            emit log("Error: a >= b not satisfied [uint]");
+            emit log_named_uint("  Value a", a);
+            emit log_named_uint("  Value b", b);
             fail();
         }
     }
-    function assertGe(int a, int b, bytes32 err) internal {
+    function assertGe(uint a, uint b, string memory err) internal {
         if (a < b) {
-            emit log_named_bytes32("Error: ", err);
+            emit log_named_string("Error", err);
             assertGe(a, b);
         }
     }
     function assertGe(int a, int b) internal {
         if (a < b) {
-            emit log_bytes32("Error: a > b not satisfied");
-            emit log_named_int("         a", a);
-            emit log_named_int("         b", b);
+            emit log("Error: a >= b not satisfied [int]");
+            emit log_named_int("  Value a", a);
+            emit log_named_int("  Value b", b);
             fail();
+        }
+    }
+    function assertGe(int a, int b, string memory err) internal {
+        if (a < b) {
+            emit log_named_string("Error", err);
+            assertGe(a, b);
+        }
+    }
+    function assertGeDecimal(int a, int b, uint decimals) internal {
+        if (a < b) {
+            emit log("Error: a >= b not satisfied [decimal int]");
+            emit log_named_decimal_int("  Value a", a, decimals);
+            emit log_named_decimal_int("  Value b", b, decimals);
+            fail();
+        }
+    }
+    function assertGeDecimal(int a, int b, uint decimals, string memory err) internal {
+        if (a < b) {
+            emit log_named_string("Error", err);
+            assertGeDecimal(a, b, decimals);
+        }
+    }
+    function assertGeDecimal(uint a, uint b, uint decimals) internal {
+        if (a < b) {
+            emit log("Error: a >= b not satisfied [decimal uint]");
+            emit log_named_decimal_uint("  Value a", a, decimals);
+            emit log_named_decimal_uint("  Value b", b, decimals);
+            fail();
+        }
+    }
+    function assertGeDecimal(uint a, uint b, uint decimals, string memory err) internal {
+        if (a < b) {
+            emit log_named_string("Error", err);
+            assertGeDecimal(a, b, decimals);
         }
     }
 
-    function assertLt(uint a, uint b, bytes32 err) internal {
-        if (a >= b) {
-            emit log_named_bytes32("Error: ", err);
-            assertLt(a, b);
-        }
-    }
     function assertLt(uint a, uint b) internal {
         if (a >= b) {
-            emit log_bytes32("Error: a < b not satisfied");
-            emit log_named_uint("         a", a);
-            emit log_named_uint("         b", b);
+            emit log("Error: a < b not satisfied [uint]");
+            emit log_named_uint("  Value a", a);
+            emit log_named_uint("  Value b", b);
             fail();
         }
     }
-    function assertLt(int a, int b, bytes32 err) internal {
+    function assertLt(uint a, uint b, string memory err) internal {
         if (a >= b) {
-            emit log_named_bytes32("Error: ", err);
+            emit log_named_string("Error", err);
             assertLt(a, b);
         }
     }
     function assertLt(int a, int b) internal {
         if (a >= b) {
-            emit log_bytes32("Error: a < b not satisfied");
-            emit log_named_int("         a", a);
-            emit log_named_int("         b", b);
+            emit log("Error: a < b not satisfied [int]");
+            emit log_named_int("  Value a", a);
+            emit log_named_int("  Value b", b);
             fail();
         }
     }
-    function assertLe(uint a, uint b, bytes32 err) internal {
-        if (a > b) {
-            emit log_named_bytes32("Error: ", err);
-            assertLe(a, b);
+    function assertLt(int a, int b, string memory err) internal {
+        if (a >= b) {
+            emit log_named_string("Error", err);
+            assertLt(a, b);
         }
     }
+    function assertLtDecimal(int a, int b, uint decimals) internal {
+        if (a >= b) {
+            emit log("Error: a < b not satisfied [decimal int]");
+            emit log_named_decimal_int("  Value a", a, decimals);
+            emit log_named_decimal_int("  Value b", b, decimals);
+            fail();
+        }
+    }
+    function assertLtDecimal(int a, int b, uint decimals, string memory err) internal {
+        if (a >= b) {
+            emit log_named_string("Error", err);
+            assertLtDecimal(a, b, decimals);
+        }
+    }
+    function assertLtDecimal(uint a, uint b, uint decimals) internal {
+        if (a >= b) {
+            emit log("Error: a < b not satisfied [decimal uint]");
+            emit log_named_decimal_uint("  Value a", a, decimals);
+            emit log_named_decimal_uint("  Value b", b, decimals);
+            fail();
+        }
+    }
+    function assertLtDecimal(uint a, uint b, uint decimals, string memory err) internal {
+        if (a <= b) {
+            emit log_named_string("Error", err);
+            assertLtDecimal(a, b, decimals);
+        }
+    }
+
     function assertLe(uint a, uint b) internal {
         if (a > b) {
-            emit log_bytes32("Error: a < b not satisfied");
-            emit log_named_uint("         a", a);
-            emit log_named_uint("         b", b);
+            emit log("Error: a <= b not satisfied [uint]");
+            emit log_named_uint("  Value a", a);
+            emit log_named_uint("  Value b", b);
             fail();
         }
     }
-    function assertLe(int a, int b, bytes32 err) internal {
+    function assertLe(uint a, uint b, string memory err) internal {
         if (a > b) {
-            emit log_named_bytes32("Error: ", err);
+            emit log_named_string("Error", err);
             assertLe(a, b);
         }
     }
     function assertLe(int a, int b) internal {
         if (a > b) {
-            emit log_bytes32("Error: a < b not satisfied");
-            emit log_named_int("         a", a);
-            emit log_named_int("         b", b);
+            emit log("Error: a <= b not satisfied [int]");
+            emit log_named_int("  Value a", a);
+            emit log_named_int("  Value b", b);
             fail();
         }
     }
-
-    function assertEq0(bytes memory a, bytes memory b) internal {
-        assertEq0(a, b, "Wrong `bytes' value");
+    function assertLe(int a, int b, string memory err) internal {
+        if (a > b) {
+            emit log_named_string("Error", err);
+            assertLe(a, b);
+        }
+    }
+    function assertLeDecimal(int a, int b, uint decimals) internal {
+        if (a > b) {
+            emit log("Error: a <= b not satisfied [decimal int]");
+            emit log_named_decimal_int("  Value a", a, decimals);
+            emit log_named_decimal_int("  Value b", b, decimals);
+            fail();
+        }
+    }
+    function assertLeDecimal(int a, int b, uint decimals, string memory err) internal {
+        if (a > b) {
+            emit log_named_string("Error", err);
+            assertLeDecimal(a, b, decimals);
+        }
+    }
+    function assertLeDecimal(uint a, uint b, uint decimals) internal {
+        if (a > b) {
+            emit log("Error: a <= b not satisfied [decimal uint]");
+            emit log_named_decimal_uint("  Value a", a, decimals);
+            emit log_named_decimal_uint("  Value b", b, decimals);
+            fail();
+        }
+    }
+    function assertLeDecimal(uint a, uint b, uint decimals, string memory err) internal {
+        if (a > b) {
+            emit log_named_string("Error", err);
+            assertGeDecimal(a, b, decimals);
+        }
     }
 
-    function assertEq0(bytes memory a, bytes memory b, bytes32 err) internal {
-        bool ok = true;
+    function assertEq(string memory a, string memory b) internal {
+        if (keccak256(abi.encodePacked(a)) != keccak256(abi.encodePacked(b))) {
+            emit log("Error: a == b not satisfied [string]");
+            emit log_named_string("  Value a", b);
+            emit log_named_string("  Value b", a);
+            fail();
+        }
+    }
+    function assertEq(string memory a, string memory b, string memory err) internal {
+        if (keccak256(abi.encodePacked(a)) != keccak256(abi.encodePacked(b))) {
+            emit log_named_string("Error", err);
+            assertEq(a, b);
+        }
+    }
 
+    function checkEq0(bytes memory a, bytes memory b) internal pure returns (bool ok) {
+        ok = true;
         if (a.length == b.length) {
             for (uint i = 0; i < a.length; i++) {
                 if (a[i] != b[i]) {
@@ -290,12 +416,19 @@ contract DSTest {
         } else {
             ok = false;
         }
-
-        if (!ok) {
-            emit log_named_bytes32("Error", err);
-            emit log_named_bytes32("  Expected", "[cannot show `bytes' value]");
-            emit log_named_bytes32("  Actual", "[cannot show `bytes' value]");
+    }
+    function assertEq0(bytes memory a, bytes memory b) internal {
+        if (!checkEq0(a, b)) {
+            emit log("Error: a == b not satisfied [bytes]");
+            emit log_named_bytes("  Expected", a);
+            emit log_named_bytes("    Actual", b);
             fail();
+        }
+    }
+    function assertEq0(bytes memory a, bytes memory b, string memory err) internal {
+        if (!checkEq0(a, b)) {
+            emit log_named_string("Error", err);
+            assertEq0(a, b);
         }
     }
 }
