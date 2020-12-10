@@ -19,7 +19,7 @@ contract DSTest {
     event log                    (string);
     event logs                   (bytes);
 
-    event log_address            (bytes32);
+    event log_address            (address);
     event log_bytes32            (bytes32);
     event log_int                (int);
     event log_uint               (uint);
@@ -327,7 +327,7 @@ contract DSTest {
         }
     }
     function assertLtDecimal(uint a, uint b, uint decimals, string memory err) internal {
-        if (a <= b) {
+        if (a >= b) {
             emit log_named_string("Error", err);
             assertLtDecimal(a, b, decimals);
         }
