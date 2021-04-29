@@ -8,5 +8,7 @@ test:
 	-dapp --use solc:0.7.5  build
 
 demo:
-	DAPP_SRC=aux dapp --use solc:0.7.5 build
+	DAPP_SRC=demo dapp --use solc:0.7.5 build
 	-hevm dapp-test --verbose 3
+
+.PHONY: test demo
