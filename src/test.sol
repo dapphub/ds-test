@@ -15,6 +15,8 @@
 
 pragma solidity >=0.4.23;
 
+import "./hevm.sol";
+
 contract DSTest {
     event log                    (string);
     event logs                   (bytes);
@@ -40,6 +42,8 @@ contract DSTest {
 
     address constant HEVM_ADDRESS =
         address(bytes20(uint160(uint256(keccak256('hevm cheat code')))));
+        
+    Hevm public hevm = Hevm(HEVM_ADDRESS);
 
     modifier mayRevert() { _; }
     modifier testopts(string memory) { _; }
