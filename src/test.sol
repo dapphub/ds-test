@@ -71,7 +71,7 @@ contract DSTest {
 
     function assertFalse(bool condition) internal {
         if (condition) {
-            emit log("Error: Assertion True");
+            emit log("Error: Assertion Failed");
             fail();
         }
     }
