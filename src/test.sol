@@ -34,6 +34,7 @@ contract DSTest {
     event log_named_uint         (string key, uint val);
     event log_named_bytes        (string key, bytes val);
     event log_named_string       (string key, string val);
+    event log_named_bool         (string key, bool val);
 
     bool public IS_TEST = true;
     bool public failed;
@@ -159,6 +160,20 @@ contract DSTest {
         if (a != b) {
             emit log_named_string("Error", err);
             assertEqDecimal(a, b, decimals);
+        }
+    }
+    function assertEq(bool a, bool b) internal {
+        if (a != b) {
+            emit log("Error: a == b not satisfied [bool]");
+            emit log_named_bool("  Expected", b);
+            emit log_named_bool("    Actual", a);
+            fail();
+        }
+    }
+    function assertEq(bool a, bool b, string memory err) internal {
+        if (a != b) {
+            emit log_named_string("Error", err);
+            assertEq(a, b);
         }
     }
 
