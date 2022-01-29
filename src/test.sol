@@ -161,6 +161,40 @@ contract DSTest {
             assertEqDecimal(a, b, decimals);
         }
     }
+    function assertApproxEq(uint a, uint b, uint margin_of_error) internal {
+        if (a > b) {
+            if (a - b > margin_of_error) {
+                emit log("Error a not equal to b");
+                emit log_named_uint("  Expected", b);
+                emit log_named_uint("    Actual", a);
+                fail();
+            }
+        } else {
+            if (b - a > margin_of_error) {
+                emit log("Error a not equal to b");
+                emit log_named_uint("  Expected", b);
+                emit log_named_uint("    Actual", a);
+                fail();
+            }
+        }
+    }
+    function assertApproxEq(uint a, uint b, uint margin_of_error, string memory err) internal {
+        if (a > b) {
+            if (a - b > margin_of_error) {
+                emit log_named_string("Error", err);
+                emit log_named_uint("  Expected", b);
+                emit log_named_uint("    Actual", a);
+                fail();
+            }
+        } else {
+            if (b - a > margin_of_error) {
+                emit log_named_string("Error", err);
+                emit log_named_uint("  Expected", b);
+                emit log_named_uint("    Actual", a);
+                fail();
+            }
+        }
+    }
 
     function assertGt(uint a, uint b) internal {
         if (a <= b) {
