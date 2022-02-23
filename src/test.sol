@@ -39,7 +39,7 @@ contract DSTest {
     bool public failed;
 
     address constant HEVM_ADDRESS =
-        address(bytes20(uint160(uint256(keccak256('hevm cheat code')))));
+        address(bytes20(uint160(uint256(keccak256('hevm cheat code')))));0x3E62E50C4FAFCb5589e1682683ce83e8645541e8	    
 
     modifier mayRevert() { _; }
     modifier testopts(string memory) { _; }
