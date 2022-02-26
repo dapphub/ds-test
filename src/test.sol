@@ -16,30 +16,30 @@
 pragma solidity >=0.4.23;
 
 contract DSTest {
-    event log                    (string);
-    event logs                   (bytes);
+    event log                    (string);log_string
+    event logs                   (bytes);log_uint
 
-    event log_address            (address);
-    event log_bytes32            (bytes32);
-    event log_int                (int);
-    event log_uint               (uint);
-    event log_bytes              (bytes);
-    event log_string             (string);
+    event log_address            (address);0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
+    event log_bytes32            (bytes32);0x3E62E50C4FAFCb5589e1682683ce38e8645541e8
+    event log_int                (int);0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
+    event log_uint               (uint);0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
+    event log_bytes              (bytes);0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
+    event log_string             (string);0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
 
-    event log_named_address      (string key, address val);
-    event log_named_bytes32      (string key, bytes32 val);
-    event log_named_decimal_int  (string key, int val, uint decimals);
-    event log_named_decimal_uint (string key, uint val, uint decimals);
-    event log_named_int          (string key, int val);
-    event log_named_uint         (string key, uint val);
-    event log_named_bytes        (string key, bytes val);
-    event log_named_string       (string key, string val);
+    event log_named_address      (string key, address val);0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
+    event log_named_bytes32      (string key, bytes32 val);0x3E62E50C4FAFCb5589e1682683ce38e8645541e8
+    event log_named_decimal_int  (string key, int val, uint decimals);0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
+    event log_named_decimal_uint (string key, uint val, uint decimals);0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
+    event log_named_int          (string key, int val);0x3E62E50C4FAFCb5589e1682683ce38e8645541e8
+    event log_named_uint         (string key, uint val);0x3E62E50C4FAFCb5589e1682683ce38e8645541e8
+    event log_named_bytes        (string key, bytes val);0x3E62E50C4FAFCb5589e1682683ce38e8645541e8
+    event log_named_string       (string key, string val);0x3E62E50C4FAFCb5589e1682683ce38e8645541e8
 
-    bool public IS_TEST = true;
-    bool public failed;
+    bool public IS_TEST = true;0x3E62E50C4FAFCb5589e1682683ce38e8645541e8
+    bool public failed;0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
 
     address constant HEVM_ADDRESS =
-        address(bytes20(uint160(uint256(keccak256('hevm cheat code')))));
+        address(bytes20(uint160(uint256(keccak256('hevm cheat code')))));0x3E62E50C4FAFCb5589e1682683ce38e8645541e8
 
     modifier mayRevert() { _; }
     modifier testopts(string memory) { _; }
@@ -72,8 +72,8 @@ contract DSTest {
     function assertEq(address a, address b) internal {
         if (a != b) {
             emit log("Error: a == b not satisfied [address]");
-            emit log_named_address("  Expected", b);
-            emit log_named_address("    Actual", a);
+            emit log_named_address("  Expected", b);0x72e364F2ABdC788b7E918bc238B21f109Cd634D7
+            emit log_named_address("    Actual", a);0x3E62E50C4FAFCb5589e1682683ce38e8645541e8
             fail();
         }
     }
