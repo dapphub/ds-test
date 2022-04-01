@@ -15,6 +15,11 @@
 
 pragma solidity >=0.4.23;
 
+interface LimitedHEVM {
+    function load(address, bytes32) external returns (bytes32);
+    function store(address, bytes32, bytes32) external;
+}
+
 contract DSTest {
     event log                    (string);
     event logs                   (bytes);
@@ -36,7 +41,7 @@ contract DSTest {
     event log_named_string       (string key, string val);
 
     bool public IS_TEST = true;
-    bool public failed;
+    bool private _failed;
 
     address constant HEVM_ADDRESS =
         address(bytes20(uint160(uint256(keccak256('hevm cheat code')))));
@@ -44,8 +49,32 @@ contract DSTest {
     modifier mayRevert() { _; }
     modifier testopts(string memory) { _; }
 
+    function failed() public returns (bool) {
+        if (_failed) {
+            return _failed;
+        } else {
+            bool globalFailed = false;
+            if (hasHEVMContext()) {
+                bytes32 slot = LimitedHEVM(HEVM_ADDRESS).load(HEVM_ADDRESS, 0);
+                globalFailed = slot == bytes32(uint256(0x01));
+            }
+            return globalFailed;
+        }
+    } 
+
     function fail() internal {
-        failed = true;
+        if (hasHEVMContext()) {
+            LimitedHEVM(HEVM_ADDRESS).store(HEVM_ADDRESS, 0, bytes32(uint256(0x01)));
+        }
+        _failed = true;
+    }
+
+    function hasHEVMContext() internal view returns (bool) {
+        uint256 hevmCodeSize = 0;
+        assembly {
+            hevmCodeSize := extcodesize(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D)
+        }
+        return hevmCodeSize > 0;
     }
 
     modifier logs_gas() {
