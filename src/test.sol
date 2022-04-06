@@ -15,11 +15,6 @@
 
 pragma solidity >=0.4.23;
 
-interface LimitedHEVM {
-    function load(address, bytes32) external returns (bytes32);
-    function store(address, bytes32, bytes32) external;
-}
-
 contract DSTest {
     event log                    (string);
     event logs                   (bytes);
