@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-pragma solidity >=0.4.23;
+pragma solidity >=0.5.0;
 
 contract DSTest {
     event log                    (string);
@@ -36,7 +36,7 @@ contract DSTest {
     event log_named_string       (string key, string val);
 
     bool public IS_TEST = true;
-    bool public failed;
+    bool private _failed;
 
     address constant HEVM_ADDRESS =
         address(bytes20(uint160(uint256(keccak256('hevm cheat code')))));
@@ -44,8 +44,43 @@ contract DSTest {
     modifier mayRevert() { _; }
     modifier testopts(string memory) { _; }
 
+    function failed() public returns (bool) {
+        if (_failed) {
+            return _failed;
+        } else {
+            bool globalFailed = false;
+            if (hasHEVMContext()) {
+                (, bytes memory retdata) = HEVM_ADDRESS.call(
+                    abi.encodePacked(
+                        bytes4(keccak256("load(address,bytes32)")),
+                        abi.encode(HEVM_ADDRESS, bytes32("failed"))
+                    )
+                );
+                globalFailed = abi.decode(retdata, (bool));
+            }
+            return globalFailed;
+        }
+    } 
+
     function fail() internal {
-        failed = true;
+        if (hasHEVMContext()) {
+            HEVM_ADDRESS.call(
+                abi.encodePacked(
+                    bytes4(keccak256("store(address,bytes32,bytes32)")),
+                    abi.encode(HEVM_ADDRESS, bytes32("failed"), bytes32(uint256(0x01)))
+                )
+            );
+
+        }
+        _failed = true;
+    }
+
+    function hasHEVMContext() internal view returns (bool) {
+        uint256 hevmCodeSize = 0;
+        assembly {
+            hevmCodeSize := extcodesize(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D)
+        }
+        return hevmCodeSize > 0;
     }
 
     modifier logs_gas() {
