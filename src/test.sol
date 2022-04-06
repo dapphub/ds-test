@@ -55,8 +55,13 @@ contract DSTest {
         } else {
             bool globalFailed = false;
             if (hasHEVMContext()) {
-                bytes32 slot = LimitedHEVM(HEVM_ADDRESS).load(HEVM_ADDRESS, 0);
-                globalFailed = slot == bytes32(uint256(0x01));
+                (, bytes memory retdata) = HEVM_ADDRESS.call(
+                    abi.encodePacked(
+                        bytes4(keccak256("load(address,bytes32)")),
+                        abi.encode(HEVM_ADDRESS, bytes32("failed"))
+                    )
+                );
+                globalFailed = abi.decode(retdata, (bool));
             }
             return globalFailed;
         }
@@ -64,7 +69,13 @@ contract DSTest {
 
     function fail() internal {
         if (hasHEVMContext()) {
-            LimitedHEVM(HEVM_ADDRESS).store(HEVM_ADDRESS, 0, bytes32(uint256(0x01)));
+            HEVM_ADDRESS.call(
+                abi.encodePacked(
+                    bytes4(keccak256("store(address,bytes32,bytes32)")),
+                    abi.encode(HEVM_ADDRESS, bytes32("failed"), bytes32(uint256(0x01)))
+                )
+            );
+
         }
         _failed = true;
     }
