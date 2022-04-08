@@ -64,13 +64,13 @@ contract DSTest {
 
     function fail() internal {
         if (hasHEVMContext()) {
-            HEVM_ADDRESS.call(
+            (bool status, ) = HEVM_ADDRESS.call(
                 abi.encodePacked(
                     bytes4(keccak256("store(address,bytes32,bytes32)")),
                     abi.encode(HEVM_ADDRESS, bytes32("failed"), bytes32(uint256(0x01)))
                 )
             );
-
+            status; // Silence compiler warnings
         }
         _failed = true;
     }
