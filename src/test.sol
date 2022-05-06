@@ -428,8 +428,8 @@ contract DSTest {
     function assertEq(string memory a, string memory b) internal {
         if (keccak256(abi.encodePacked(a)) != keccak256(abi.encodePacked(b))) {
             emit log("Error: a == b not satisfied [string]");
-            emit log_named_string("  Value a", a);
-            emit log_named_string("  Value b", b);
+            emit log_named_string("  Expected", b);
+            emit log_named_string("    Actual", a);
             fail();
         }
     }
@@ -455,8 +455,8 @@ contract DSTest {
     function assertEq0(bytes memory a, bytes memory b) internal {
         if (!checkEq0(a, b)) {
             emit log("Error: a == b not satisfied [bytes]");
-            emit log_named_bytes("  Expected", a);
-            emit log_named_bytes("    Actual", b);
+            emit log_named_bytes("  Expected", b);
+            emit log_named_bytes("    Actual", a);
             fail();
         }
     }
