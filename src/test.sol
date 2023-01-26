@@ -272,7 +272,7 @@ contract DSTest {
     function assertNotEqDecimal(int a, int b, uint decimals, string memory err) internal {
         if (a == b) {
             emit log_named_string("Error", err);
-            assertEqDecimal(a, b, decimals);
+            assertNotEqDecimal(a, b, decimals);
         }
     }
     function assertNotEqDecimal(uint a, uint b, uint decimals) internal {
