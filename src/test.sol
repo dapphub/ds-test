@@ -236,8 +236,8 @@ contract DSTest {
     function assertNotEq(int a, int b) internal {
         if (a == b) {
             emit log("Error: a != b not satisfied [int]");
-            emit log_named_int("  Expected", b);
-            emit log_named_int("    Actual", a);
+            emit log_named_int("    Expected", a);
+            emit log_named_int("Not to equal", b);
             fail();
         }
     }
