@@ -107,8 +107,8 @@ contract DSTest {
     function assertEq(address a, address b) internal {
         if (a != b) {
             emit log("Error: a == b not satisfied [address]");
-            emit log_named_address("  Expected", b);
-            emit log_named_address("    Actual", a);
+            emit log_named_address("      Left", a);
+            emit log_named_address("     Right", b);
             fail();
         }
     }
@@ -122,8 +122,8 @@ contract DSTest {
     function assertEq(bytes32 a, bytes32 b) internal {
         if (a != b) {
             emit log("Error: a == b not satisfied [bytes32]");
-            emit log_named_bytes32("  Expected", b);
-            emit log_named_bytes32("    Actual", a);
+            emit log_named_bytes32("      Left", a);
+            emit log_named_bytes32("     Right", b);
             fail();
         }
     }
@@ -143,8 +143,8 @@ contract DSTest {
     function assertEq(int a, int b) internal {
         if (a != b) {
             emit log("Error: a == b not satisfied [int]");
-            emit log_named_int("  Expected", b);
-            emit log_named_int("    Actual", a);
+            emit log_named_int("      Left", a);
+            emit log_named_int("     Right", b);
             fail();
         }
     }
@@ -157,8 +157,8 @@ contract DSTest {
     function assertEq(uint a, uint b) internal {
         if (a != b) {
             emit log("Error: a == b not satisfied [uint]");
-            emit log_named_uint("  Expected", b);
-            emit log_named_uint("    Actual", a);
+            emit log_named_uint("      Left", a);
+            emit log_named_uint("     Right", b);
             fail();
         }
     }
@@ -171,8 +171,8 @@ contract DSTest {
     function assertEqDecimal(int a, int b, uint decimals) internal {
         if (a != b) {
             emit log("Error: a == b not satisfied [decimal int]");
-            emit log_named_decimal_int("  Expected", b, decimals);
-            emit log_named_decimal_int("    Actual", a, decimals);
+            emit log_named_decimal_int("      Left", a, decimals);
+            emit log_named_decimal_int("     Right", b, decimals);
             fail();
         }
     }
@@ -185,8 +185,8 @@ contract DSTest {
     function assertEqDecimal(uint a, uint b, uint decimals) internal {
         if (a != b) {
             emit log("Error: a == b not satisfied [decimal uint]");
-            emit log_named_decimal_uint("  Expected", b, decimals);
-            emit log_named_decimal_uint("    Actual", a, decimals);
+            emit log_named_decimal_uint("      Left", a, decimals);
+            emit log_named_decimal_uint("     Right", b, decimals);
             fail();
         }
     }
@@ -428,8 +428,8 @@ contract DSTest {
     function assertEq(string memory a, string memory b) internal {
         if (keccak256(abi.encodePacked(a)) != keccak256(abi.encodePacked(b))) {
             emit log("Error: a == b not satisfied [string]");
-            emit log_named_string("  Expected", b);
-            emit log_named_string("    Actual", a);
+            emit log_named_string("      Left", a);
+            emit log_named_string("     Right", b);
             fail();
         }
     }
@@ -455,8 +455,8 @@ contract DSTest {
     function assertEq0(bytes memory a, bytes memory b) internal {
         if (!checkEq0(a, b)) {
             emit log("Error: a == b not satisfied [bytes]");
-            emit log_named_bytes("  Expected", b);
-            emit log_named_bytes("    Actual", a);
+            emit log_named_bytes("      Left", a);
+            emit log_named_bytes("     Right", b);
             fail();
         }
     }
