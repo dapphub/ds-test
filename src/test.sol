@@ -62,7 +62,7 @@ contract DSTest {
         }
     }
 
-    function fail() internal {
+    function fail() internal virtual {
         if (hasHEVMContext()) {
             (bool status, ) = HEVM_ADDRESS.call(
                 abi.encodePacked(

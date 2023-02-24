@@ -303,4 +303,11 @@ contract DemoTest is DSTest {
     function testFailAssertLeDecimalIntWithMsg() public {
         assertLeDecimal(-1, -2, 18, "msg");
     }
+
+    // --- fail override ---
+
+    // ensure that fail can be overridden
+    function fail() internal override {
+        super.fail();
+    }
 }
