@@ -306,6 +306,7 @@ contract DemoTest is DSTest {
 
     // --- fail override ---
 
+    // ensure that fail can be overridden
     function fail() internal override {
         super.fail();
     }
