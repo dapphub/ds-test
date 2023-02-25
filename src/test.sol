@@ -466,4 +466,29 @@ contract DSTest {
             assertEq0(a, b);
         }
     }
+    function assertRevert(address target, bytes memory data, string memory expectedMessage) internal {
+        assertRevert(target, data, 0, expectedMessage);
+    }
+    function assertRevert(address target, bytes memory data, uint256 value, string memory expectedMessage) internal {
+        bool succeeded;
+        bytes memory response;
+        (succeeded, response) = target.call{value:value}(data);
+        if (succeeded) {
+            emit log("Error: call not reverted");
+            fail();
+        } else {
+            string memory message;
+            assembly {
+                let size := mload(add(response, 0x44))
+                message := mload(0x40)
+                mstore(message, size)
+                mstore(0x40, add(message, and(add(add(size, 0x20), 0x1f), not(0x1f))))
+                returndatacopy(add(message, 0x20), 0x44, size)
+            }
+            if (keccak256(abi.encodePacked(message)) != keccak256(abi.encodePacked(expectedMessage))) {
+                emit log("Error: revert message not satisfied");
+                fail();
+            }
+        }
+    }
 }
