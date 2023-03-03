@@ -395,6 +395,19 @@ contract DemoTest is DSTest {
         assertNotEq(new string(1), new string(1), "msg");
     }
 
+    // --- assertNotEq0 (Bytes) ---
+
+    function testAssertNotEq0Bytes() public {
+        assertNotEq0(bytes("hi"), bytes("ho"), "msg");
+        assertNotEq0(bytes("hi"), bytes("ho"));
+    }
+    function testFailAssertNotEq0Bytes() public {
+        assertNotEq0(bytes("hi"), bytes("hi"));
+    }
+    function testFailAssertNotEq0BytesWithMsg() public {
+        assertNotEq0(bytes("hi"), bytes("hi"), "msg");
+    }
+
     // --- fail override ---
 
     // ensure that fail can be overridden
