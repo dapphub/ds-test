@@ -382,6 +382,19 @@ contract DemoTest is DSTest {
         assertLeDecimal(-1, -2, 18, "msg");
     }
 
+    // --- assertNotEq (String) ---
+
+    function testAssertNotEqString() public {
+        assertNotEq(new string(1), new string(2), "msg");
+        assertNotEq(new string(1), new string(2));
+    }
+    function testFailAssertNotEqString() public {
+        assertNotEq(new string(1), new string(1));
+    }
+    function testFailAssertNotEqStringWithMsg() public {
+        assertNotEq(new string(1), new string(1), "msg");
+    }
+
     // --- fail override ---
 
     // ensure that fail can be overridden
