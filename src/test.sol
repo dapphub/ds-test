@@ -598,7 +598,7 @@ contract DSTest {
     function assertNotEq0(bytes memory a, bytes memory b, string memory err) internal {
         if (!checkNotEq0(a, b)) {
             emit log_named_string("Error", err);
-            assertEq0(a, b);
+            assertNotEq0(a, b);
         }
     }
 }
