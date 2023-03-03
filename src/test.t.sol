@@ -148,6 +148,19 @@ contract DemoTest is DSTest {
         assertNotEq(uint(1), uint(1), "msg");
     }
 
+    // --- assertNotEqDecimal (Int) ---
+
+    function testAssertNotEqDecimalInt() public {
+        assertNotEqDecimal(-1, -2, 18, "msg");
+        assertNotEqDecimal(-1, -2, 18);
+    }
+    function testFailAssertNotEqDecimalInt() public {
+        assertNotEqDecimal(-1, -1, 18);
+    }
+    function testFailAssertNotEqDecimalIntWithMsg() public {
+        assertNotEqDecimal(-1, -1, 18, "msg");
+    }
+
     // --- assertGt (UInt) ---
 
     function testAssertGtUInt() public {
