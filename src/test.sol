@@ -197,6 +197,99 @@ contract DSTest {
         }
     }
 
+    function assertNotEq(address a, address b) internal {
+        if (a == b) {
+            emit log("Error: a != b not satisfied [address]");
+            emit log_named_address("      Left", a);
+            emit log_named_address("     Right", b);
+            fail();
+        }
+    }
+    function assertNotEq(address a, address b, string memory err) internal {
+        if (a == b) {
+            emit log_named_string ("Error", err);
+            assertNotEq(a, b);
+        }
+    }
+
+    function assertNotEq(bytes32 a, bytes32 b) internal {
+        if (a == b) {
+            emit log("Error: a != b not satisfied [bytes32]");
+            emit log_named_bytes32("      Left", a);
+            emit log_named_bytes32("     Right", b);
+            fail();
+        }
+    }
+    function assertNotEq(bytes32 a, bytes32 b, string memory err) internal {
+        if (a == b) {
+            emit log_named_string ("Error", err);
+            assertNotEq(a, b);
+        }
+    }
+    function assertNotEq32(bytes32 a, bytes32 b) internal {
+        assertNotEq(a, b);
+    }
+    function assertNotEq32(bytes32 a, bytes32 b, string memory err) internal {
+        assertNotEq(a, b, err);
+    }
+
+    function assertNotEq(int a, int b) internal {
+        if (a == b) {
+            emit log("Error: a != b not satisfied [int]");
+            emit log_named_int("      Left", a);
+            emit log_named_int("     Right", b);
+            fail();
+        }
+    }
+    function assertNotEq(int a, int b, string memory err) internal {
+        if (a == b) {
+            emit log_named_string("Error", err);
+            assertNotEq(a, b);
+        }
+    }
+    function assertNotEq(uint a, uint b) internal {
+        if (a == b) {
+            emit log("Error: a != b not satisfied [uint]");
+            emit log_named_uint("      Left", a);
+            emit log_named_uint("     Right", b);
+            fail();
+        }
+    }
+    function assertNotEq(uint a, uint b, string memory err) internal {
+        if (a == b) {
+            emit log_named_string("Error", err);
+            assertNotEq(a, b);
+        }
+    }
+    function assertNotEqDecimal(int a, int b, uint decimals) internal {
+        if (a == b) {
+            emit log("Error: a != b not satisfied [decimal int]");
+            emit log_named_decimal_int("      Left", a, decimals);
+            emit log_named_decimal_int("     Right", b, decimals);
+            fail();
+        }
+    }
+    function assertNotEqDecimal(int a, int b, uint decimals, string memory err) internal {
+        if (a == b) {
+            emit log_named_string("Error", err);
+            assertNotEqDecimal(a, b, decimals);
+        }
+    }
+    function assertNotEqDecimal(uint a, uint b, uint decimals) internal {
+        if (a == b) {
+            emit log("Error: a != b not satisfied [decimal uint]");
+            emit log_named_decimal_uint("      Left", a, decimals);
+            emit log_named_decimal_uint("     Right", b, decimals);
+            fail();
+        }
+    }
+    function assertNotEqDecimal(uint a, uint b, uint decimals, string memory err) internal {
+        if (a == b) {
+            emit log_named_string("Error", err);
+            assertNotEqDecimal(a, b, decimals);
+        }
+    }
+
     function assertGt(uint a, uint b) internal {
         if (a <= b) {
             emit log("Error: a > b not satisfied [uint]");
@@ -440,6 +533,21 @@ contract DSTest {
         }
     }
 
+    function assertNotEq(string memory a, string memory b) internal {
+        if (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b))) {
+            emit log("Error: a != b not satisfied [string]");
+            emit log_named_string("      Left", a);
+            emit log_named_string("     Right", b);
+            fail();
+        }
+    }
+    function assertNotEq(string memory a, string memory b, string memory err) internal {
+        if (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b))) {
+            emit log_named_string("Error", err);
+            assertNotEq(a, b);
+        }
+    }
+
     function checkEq0(bytes memory a, bytes memory b) internal pure returns (bool ok) {
         ok = true;
         if (a.length == b.length) {
@@ -464,6 +572,21 @@ contract DSTest {
         if (!checkEq0(a, b)) {
             emit log_named_string("Error", err);
             assertEq0(a, b);
+        }
+    }
+
+    function assertNotEq0(bytes memory a, bytes memory b) internal {
+        if (checkEq0(a, b)) {
+            emit log("Error: a != b not satisfied [bytes]");
+            emit log_named_bytes("      Left", a);
+            emit log_named_bytes("     Right", b);
+            fail();
+        }
+    }
+    function assertNotEq0(bytes memory a, bytes memory b, string memory err) internal {
+        if (checkEq0(a, b)) {
+            emit log_named_string("Error", err);
+            assertNotEq0(a, b);
         }
     }
 }

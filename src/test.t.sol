@@ -96,6 +96,84 @@ contract DemoTest is DSTest {
         assertEqDecimal(uint(1), uint(2), 18, "msg");
     }
 
+    // --- assertNotEq (Addr) ---
+
+    function testAssertNotEqAddr() public {
+        assertNotEq(address(0x0), address(0x1), "msg");
+        assertNotEq(address(0x0), address(0x1));
+    }
+    function testFailAssertNotEqAddr() public {
+        assertNotEq(address(0x0), address(0x0));
+    }
+    function testFailAssertNotEqAddrWithMsg() public {
+        assertNotEq(address(0x0), address(0x0), "msg");
+    }
+
+    // --- assertNotEq (Bytes32) ---
+
+    function testAssertNotEqBytes32() public {
+        assertNotEq(bytes32("hi"), bytes32("ho"), "msg");
+        assertNotEq(bytes32("hi"), bytes32("ho"));
+    }
+    function testFailAssertNotEqBytes32() public {
+        assertNotEq(bytes32("hi"), bytes32("hi"));
+    }
+    function testFailAssertNotEqBytes32WithMsg() public {
+        assertNotEq(bytes32("hi"), bytes32("hi"), "msg");
+    }
+
+    // --- assertNotEq (Int) ---
+
+    function testAssertNotEqInt() public {
+        assertNotEq(-1, -2, "msg");
+        assertNotEq(-1, -2);
+    }
+    function testFailAssertNotEqInt() public {
+        assertNotEq(-1, -1);
+    }
+    function testFailAssertNotEqIntWithMsg() public {
+        assertNotEq(-1, -1, "msg");
+    }
+
+    // --- assertNotEq (UInt) ---
+
+    function testAssertNotEqUInt() public {
+        assertNotEq(uint(1), uint(2), "msg");
+        assertNotEq(uint(1), uint(2));
+    }
+    function testFailAssertNotEqUInt() public {
+        assertNotEq(uint(1), uint(1));
+    }
+    function testFailAssertNotEqUIntWithMsg() public {
+        assertNotEq(uint(1), uint(1), "msg");
+    }
+
+    // --- assertNotEqDecimal (Int) ---
+
+    function testAssertNotEqDecimalInt() public {
+        assertNotEqDecimal(-1, -2, 18, "msg");
+        assertNotEqDecimal(-1, -2, 18);
+    }
+    function testFailAssertNotEqDecimalInt() public {
+        assertNotEqDecimal(-1, -1, 18);
+    }
+    function testFailAssertNotEqDecimalIntWithMsg() public {
+        assertNotEqDecimal(-1, -1, 18, "msg");
+    }
+
+    // --- assertNotEqDecimal (UInt) ---
+
+    function testAssertNotEqDecimalUInt() public {
+        assertNotEqDecimal(uint(1), uint(2), 18, "msg");
+        assertNotEqDecimal(uint(1), uint(2), 18);
+    }
+    function testFailAssertNotEqDecimalUInt() public {
+        assertNotEqDecimal(uint(1), uint(1), 18);
+    }
+    function testFailAssertNotEqDecimalUIntWithMsg() public {
+        assertNotEqDecimal(uint(1), uint(1), 18, "msg");
+    }
+
     // --- assertGt (UInt) ---
 
     function testAssertGtUInt() public {
@@ -302,6 +380,32 @@ contract DemoTest is DSTest {
     }
     function testFailAssertLeDecimalIntWithMsg() public {
         assertLeDecimal(-1, -2, 18, "msg");
+    }
+
+    // --- assertNotEq (String) ---
+
+    function testAssertNotEqString() public {
+        assertNotEq(new string(1), new string(2), "msg");
+        assertNotEq(new string(1), new string(2));
+    }
+    function testFailAssertNotEqString() public {
+        assertNotEq(new string(1), new string(1));
+    }
+    function testFailAssertNotEqStringWithMsg() public {
+        assertNotEq(new string(1), new string(1), "msg");
+    }
+
+    // --- assertNotEq0 (Bytes) ---
+
+    function testAssertNotEq0Bytes() public {
+        assertNotEq0(bytes("hi"), bytes("ho"), "msg");
+        assertNotEq0(bytes("hi"), bytes("ho"));
+    }
+    function testFailAssertNotEq0Bytes() public {
+        assertNotEq0(bytes("hi"), bytes("hi"));
+    }
+    function testFailAssertNotEq0BytesWithMsg() public {
+        assertNotEq0(bytes("hi"), bytes("hi"), "msg");
     }
 
     // --- fail override ---
