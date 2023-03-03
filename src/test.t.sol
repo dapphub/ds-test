@@ -109,6 +109,19 @@ contract DemoTest is DSTest {
         assertNotEq(address(0x0), address(0x0), "msg");
     }
 
+    // --- assertNotEq (Bytes32) ---
+
+    function testAssertNotEqBytes32() public {
+        assertNotEq(bytes32("hi"), bytes32("ho"), "msg");
+        assertNotEq(bytes32("hi"), bytes32("ho"));
+    }
+    function testFailAssertNotEqBytes32() public {
+        assertNotEq(bytes32("hi"), bytes32("hi"));
+    }
+    function testFailAssertNotEqBytes32WithMsg() public {
+        assertNotEq(bytes32("hi"), bytes32("hi"), "msg");
+    }
+
     // --- assertGt (UInt) ---
 
     function testAssertGtUInt() public {
