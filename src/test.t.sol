@@ -135,6 +135,19 @@ contract DemoTest is DSTest {
         assertNotEq(-1, -1, "msg");
     }
 
+    // --- assertNotEq (UInt) ---
+
+    function testAssertNotEqUInt() public {
+        assertNotEq(uint(1), uint(2), "msg");
+        assertNotEq(uint(1), uint(2));
+    }
+    function testFailAssertNotEqUInt() public {
+        assertNotEq(uint(1), uint(1));
+    }
+    function testFailAssertNotEqUIntWithMsg() public {
+        assertNotEq(uint(1), uint(1), "msg");
+    }
+
     // --- assertGt (UInt) ---
 
     function testAssertGtUInt() public {
