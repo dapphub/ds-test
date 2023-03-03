@@ -96,6 +96,19 @@ contract DemoTest is DSTest {
         assertEqDecimal(uint(1), uint(2), 18, "msg");
     }
 
+    // --- assertNotEq (Addr) ---
+
+    function testAssertNotEqAddr() public {
+        assertNotEq(address(0x0), address(0x1), "msg");
+        assertNotEq(address(0x0), address(0x1));
+    }
+    function testFailAssertNotEqAddr() public {
+        assertNotEq(address(0x0), address(0x0));
+    }
+    function testFailAssertNotEqAddrWithMsg() public {
+        assertNotEq(address(0x0), address(0x0), "msg");
+    }
+
     // --- assertGt (UInt) ---
 
     function testAssertGtUInt() public {
