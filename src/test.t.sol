@@ -122,6 +122,19 @@ contract DemoTest is DSTest {
         assertNotEq(bytes32("hi"), bytes32("hi"), "msg");
     }
 
+    // --- assertNotEq (Int) ---
+
+    function testAssertNotEqInt() public {
+        assertNotEq(-1, -2, "msg");
+        assertNotEq(-1, -2);
+    }
+    function testFailAssertNotEqInt() public {
+        assertNotEq(-1, -1);
+    }
+    function testFailAssertNotEqIntWithMsg() public {
+        assertNotEq(-1, -1, "msg");
+    }
+
     // --- assertGt (UInt) ---
 
     function testAssertGtUInt() public {
