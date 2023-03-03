@@ -533,6 +533,21 @@ contract DSTest {
         }
     }
 
+    function assertNotEq(string memory a, string memory b) internal {
+        if (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b))) {
+            emit log("Error: a != b not satisfied [string]");
+            emit log_named_string("      Left", a);
+            emit log_named_string("     Right", b);
+            fail();
+        }
+    }
+    function assertNotEq(string memory a, string memory b, string memory err) internal {
+        if (keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b))) {
+            emit log_named_string("Error", err);
+            assertNotEq(a, b);
+        }
+    }
+
     function checkEq0(bytes memory a, bytes memory b) internal pure returns (bool ok) {
         ok = true;
         if (a.length == b.length) {
@@ -555,6 +570,33 @@ contract DSTest {
     }
     function assertEq0(bytes memory a, bytes memory b, string memory err) internal {
         if (!checkEq0(a, b)) {
+            emit log_named_string("Error", err);
+            assertEq0(a, b);
+        }
+    }
+
+    function checkNotEq0(bytes memory a, bytes memory b) internal pure returns (bool ok) {
+        ok = false;
+        if (a.length == b.length) {
+            for (uint i = 0; i < a.length; i++) {
+                if (a[i] != b[i]) {
+                    ok = true;
+                }
+            }
+        } else {
+            ok = true;
+        }
+    }
+    function assertNotEq0(bytes memory a, bytes memory b) internal {
+        if (!checkNotEq0(a, b)) {
+            emit log("Error: a != b not satisfied [bytes]");
+            emit log_named_bytes("      Left", a);
+            emit log_named_bytes("     Right", b);
+            fail();
+        }
+    }
+    function assertNotEq0(bytes memory a, bytes memory b, string memory err) internal {
+        if (!checkNotEq0(a, b)) {
             emit log_named_string("Error", err);
             assertEq0(a, b);
         }
