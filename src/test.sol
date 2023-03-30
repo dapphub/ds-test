@@ -104,6 +104,20 @@ contract DSTest {
         }
     }
 
+    function assertFalse(bool condition) internal {
+        if (condition) {
+            emit log("Error: Assertion Failed");
+            fail();
+        }
+    }
+
+    function assertFalse(bool condition, string memory err) internal {
+        if (condition) {
+            emit log_named_string("Error", err);
+            assertFalse(condition);
+        }
+    }
+
     function assertEq(address a, address b) internal {
         if (a != b) {
             emit log("Error: a == b not satisfied [address]");
@@ -194,6 +208,40 @@ contract DSTest {
         if (a != b) {
             emit log_named_string("Error", err);
             assertEqDecimal(a, b, decimals);
+        }
+    }
+    function assertApproxEq(uint a, uint b, uint margin_of_error) internal {
+        if (a > b) {
+            if (a - b > margin_of_error) {
+                emit log("Error a not equal to b");
+                emit log_named_uint("  Expected", b);
+                emit log_named_uint("    Actual", a);
+                fail();
+            }
+        } else {
+            if (b - a > margin_of_error) {
+                emit log("Error a not equal to b");
+                emit log_named_uint("  Expected", b);
+                emit log_named_uint("    Actual", a);
+                fail();
+            }
+        }
+    }
+    function assertApproxEq(uint a, uint b, uint margin_of_error, string memory err) internal {
+        if (a > b) {
+            if (a - b > margin_of_error) {
+                emit log_named_string("Error", err);
+                emit log_named_uint("  Expected", b);
+                emit log_named_uint("    Actual", a);
+                fail();
+            }
+        } else {
+            if (b - a > margin_of_error) {
+                emit log_named_string("Error", err);
+                emit log_named_uint("  Expected", b);
+                emit log_named_uint("    Actual", a);
+                fail();
+            }
         }
     }
 
