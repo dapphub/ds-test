@@ -85,6 +85,11 @@ contract DemoTest is DSTest {
         emit log("\n");
         assertTrue(false, err);
 
+        emit log("## assertFalse(bool)\n");
+        assertFalse(true);
+        emit log("\n");
+        assertFalse(true, err);
+
         emit log("\n## assertEq(address,address)\n");
         assertEq(address(this), msg.sender);
         emit log("\n");
