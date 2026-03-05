@@ -386,7 +386,7 @@ contract DSTest {
     function assertGeDecimal(int a, int b, uint decimals, string memory err) internal {
         if (a < b) {
             emit log_named_string("Error", err);
-            assertGeDecimal(a, b, decimals);
+            assertLeDecimal(a, b, decimals);
         }
     }
     function assertGeDecimal(uint a, uint b, uint decimals) internal {
